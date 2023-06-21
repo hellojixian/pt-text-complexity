@@ -7,11 +7,11 @@ import json
 
 def generate_html(input_text):
     # Generate HTML code dynamically based on the input
-    score, features = complexity_score(input_text)
-    html_code = f"<h1>PT Score: {score}!</h1>"
-    # render the feature json as html
-    html_code += f"<h2>Features:</h2><pre>{json.dumps(features, indent=4)}</pre>"
-    return html_code
+  score, features = complexity_score(input_text)
+  html_code = f"<h1>PT Score: {score}!</h1>"
+  # render the feature json as html
+  html_code += f"<h2>Features:</h2><pre>{json.dumps(features, indent=4)}</pre>"
+  return html_code
 
 def webapp():
   interface = gr.Interface(

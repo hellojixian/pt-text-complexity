@@ -1,3 +1,6 @@
 gradio
 numpy
 pandas
+python-dotenv
+nltk
+stanza
