@@ -17,7 +17,7 @@ def webapp():
   interface = gr.Interface(
       title="Pickatale Text Complexity Measurement",
       fn=generate_html,
-      inputs=[gr.components.Textbox(lines=2,
+      inputs=[gr.components.Textbox(lines=20,
                                     placeholder="Please enter your text here, and click Submit button to see the result.",
                                     label="Text",
                                     )],
