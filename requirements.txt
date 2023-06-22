@@ -4,3 +4,7 @@ pandas
 python-dotenv
 nltk
 stanza
+textstat
+spacy
+scikit-learn==0.24.1
+xgboost==1.3.3

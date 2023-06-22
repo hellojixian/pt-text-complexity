@@ -23,13 +23,13 @@ wnl = None
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data_path = f"{project_root}/data/en_cefr_level.csv"
 
-rank_mapping = {'A1': [1, 600],
-                'A2': [601, 1200],
-                'B1': [1201, 2500],
-                'B2': [2501, 3000],
-                'C1': [3001, 10000],
-                'C2': [10001, 20000],
-                'C2+': [20001, 50000]}
+rank_mapping = {'A1':  [1, 600],
+                'A2':  [601, 1200],
+                'B1':  [1201, 2500],
+                'B2':  [2501, 3000],
+                'C1':  [3001, 10000],
+                'C2':  [10001, 20000],
+                'C2P': [20001, 50000]}
 
 
 def extract_tokens(text:str) -> list:
@@ -65,20 +65,18 @@ def text_leveling(text:str) -> dict:
   ranks = []
   rank_levels = dict([(level, 0) for level in rank_mapping.keys()])
   for token in tokens:
-    [org_word, _, lemmatized_word] = token
+    [org_word, pos, lemmatized_word] = token
     word_level = word_leveling(lemmatized_word)
     output['words'].append({
-      'word': org_word,
-      'rank': word_level['rank'],
-      'level': word_level['level'],
-      'score': word_level['score'],
+      'word': str(org_word),
+      'pos': str(pos),
+      'rank': int(word_level['rank']),
+      'level': str(word_level['level']),
+      'score': float(word_level['score']),
     })
     if word_level['rank'] > 0: ranks.append(word_level['rank'])
     if word_level['level'] != 'UNK': rank_levels[word_level['level']] += 1
-  output['meta']['mean_rank'] = round(sum(ranks) / len(ranks), 2) if len(ranks) > 0 else 0
-  rank_levels = [(level, round(count/len(ranks),2)) for level, count in rank_levels.items()]
-  output['meta']['rank_levels'] = sorted(rank_levels, key=lambda x: x[1], reverse=True)
-  output['meta']['rank_level'] = sorted(rank_levels, key=lambda x: x[1], reverse=True)[0][0]
-  print(rank_levels)
-  print(output)
+  output['meta']['rank_mean'] = round(sum(ranks) / len(ranks), 2) if len(ranks) > 0 else 0
+  output['meta']['rank_q75'] = round(pd.Series(ranks).quantile(0.75), 2) if len(ranks) > 0 else 0
+  output['meta']['rank_q50'] = round(pd.Series(ranks).quantile(0.5), 2) if len(ranks) > 0 else 0
   return output
