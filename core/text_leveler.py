@@ -31,7 +31,6 @@ rank_mapping = {'A1':  [1, 600],
                 'C2':  [10001, 20000],
                 'C2P': [20001, 50000]}
 
-
 def extract_tokens(text:str) -> list:
   global data_df, wnl
   if data_df is None: data_df = pd.read_csv(data_path)
