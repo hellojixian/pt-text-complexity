@@ -1,7 +1,7 @@
 import os,sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
-sys.path.append(f"{project_root}/lib")
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'lib')
 from cefr_predictor.inference import Model
 
 model = None
