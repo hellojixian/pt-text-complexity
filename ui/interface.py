@@ -48,7 +48,7 @@ def generate_html(input_text):
   cefr_level, cefr_score = cefr_predict(input_text)
   words = text_leveling(input_text)['words']
   html_code = f"<h1>PT Score: {pt_score:.0f}</h1>"
-  html_code = f"<h2>CEFR Level: {cefr_level}</h2>"
+  html_code += f"<h2>CEFR Level: {cefr_level}</h2>"
   # render the feature json as html
   output = {
     'cefr_level': cefr_level,
